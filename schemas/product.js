@@ -20,7 +20,37 @@ const product = mongoose.Schema({
     price: {
         type: Number,
         required: true
-    }
+    },
+    brandName: {
+        type: String,
+        required: true
+    },
+    allQuantity: {
+        type: Number,
+        required: true
+    },
+    color: {
+        type: String,
+        required: true
+    },
+    sizes: [
+        {
+            XXL: Number
+        },
+        {
+            XL: Number
+        },
+        {
+            L: Number
+        },
+        {
+            M: Number
+        },
+        {
+            S: Number
+        }
+        
+    ]
 
 })
 
