@@ -17,7 +17,7 @@ const logIn = asyncWrapper( async (req , res , next) => {
     if (matchedPassword) {
         
         const token = await jwt.sign({email: email , id: existUser._id , role: existUser.role} , process.env.JWT_SECRET_KEY , {expiresIn: '1h'})
-        res.status(200).json({status: "success" , message: "loginSuccessfully" , data: {token , id:existUser._id , role: existUser.role}})
+        res.status(200).json({status: "success" , message: "loginSuccessfully" , data: {token , id:existUser._id , role: existUser.role , brand: existUser?.brand || "none"}})
     }else {
         const err = new Error()
         err.message = "Password is wrong"
