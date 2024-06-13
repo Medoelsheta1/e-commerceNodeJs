@@ -80,6 +80,7 @@ productsRouter.get('/api/products/search/:searchKey' ,productsControllers.getPro
 productsRouter.post('/api/products',checkJwt , allowedTo('ADMIN') ,  upload.array('images') , cloudImages  ,productsControllers.addProduct )
 productsRouter.patch('/api/products/:productId', checkJwt , allowedTo('ADMIN') , upload.array('images')   ,productsControllers.updateProduct )
 productsRouter.delete('/api/products/:productId', checkJwt , allowedTo('ADMIN')  ,productsControllers.deleteProduct )
+productsRouter.delete('/api/products/:kind', checkJwt , allowedTo('brandOwner')  ,productsControllers.getBrandProducts )
 productsRouter.post('/api/create-checkout-session', checkJwt  ,productsControllers.payment )
 
 module.exports = {

@@ -140,6 +140,16 @@ const addOrders = asyncWraper(async(req , res ) => {
         }
     })
 })
+const getBrandProducts = asyncWraper(async(req, res) => {
+    const brandName = req.params.kind
+    const products = await product.find({"kind": brandName })
+    res.status(200).json({
+        status: 'success',
+        data: {
+            products
+        }
+    })
+})
 const getOrders = asyncWraper(async(req, res) => {
     const page = req.query.page || 1
     const limit = req.query.limit || 10
@@ -211,5 +221,6 @@ module.exports = {
     getOrders,
     getOrder,
     addStatus,
-    payment
+    payment,
+    getBrandProducts
 }

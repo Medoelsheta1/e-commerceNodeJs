@@ -33,6 +33,10 @@ const user = mongoose.Schema({
     avatar: {
         type: String,
         default: 'profiler.webp'
+    },
+    brand: {
+        type: String,
+        default: "none"
     }
 
 })
