@@ -171,8 +171,21 @@ const getOrder = asyncWraper(async(req, res) => {
         }
     })
 })
+const updateQuantiy = asyncWraper(async(req, res) => {
+    const id = req.params.id
+    const updatedQuantaty = req.query.quantity
+    const getProduct = await product.findById(id)
+    let updatedSize = req.query.size
+    getProduct.sizes[0][`${updatedSize}`] = updatedQuantaty
+    await getProduct.save()
+    res.json({
+        status: "success",
+        data: {
+            getProduct
+        }
+    })
+})
 const payment = asyncWraper(async(req, res) => {
-    console.log(req.body.products)
     const line_items = req.body.products.map((ele) => {
         return {
             price_data:  {
@@ -222,5 +235,6 @@ module.exports = {
     getOrder,
     addStatus,
     payment,
-    getBrandProducts
+    getBrandProducts,
+    updateQuantiy
 }

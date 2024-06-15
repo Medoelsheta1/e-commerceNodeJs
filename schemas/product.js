@@ -21,37 +21,32 @@ const product = mongoose.Schema({
         type: Number,
         required: true
     },
-    brandName: {
-        type: String,
-        required: true
-    },
+
     allQuantity: {
         type: Number,
-        required: true
     },
     color: {
         type: String,
-        required: true
     },
-    sizes: [
-        {
-            XXL: Number
-        },
-        {
-            XL: Number
-        },
-        {
-            L: Number
-        },
-        {
-            M: Number
-        },
-        {
-            S: Number
-        }
-        
-    ]
+    sizes: [{
 
+        XXL: {
+            type: Number
+        },
+        S: {
+            type: Number
+        },
+        M: {
+            type: Number
+        },
+        XL: {
+            type: Number
+        },
+        L: {
+            type: Number
+        }
+    }
+    ]
 })
 
 module.exports = mongoose.model('product' , product)

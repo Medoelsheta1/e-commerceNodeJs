@@ -81,6 +81,7 @@ productsRouter.post('/api/products',checkJwt , allowedTo('ADMIN') ,  upload.arra
 productsRouter.patch('/api/products/:productId', checkJwt , allowedTo('ADMIN') , upload.array('images')   ,productsControllers.updateProduct )
 productsRouter.delete('/api/products/:productId', checkJwt , allowedTo('ADMIN')  ,productsControllers.deleteProduct )
 productsRouter.get('/api/brand/:kind', checkJwt , allowedTo('brandOwner')  ,productsControllers.getBrandProducts )
+productsRouter.post('/api/brand/updateQuantity/:id', checkJwt , allowedTo('brandOwner')  ,productsControllers.updateQuantiy )
 productsRouter.post('/api/create-checkout-session', checkJwt  ,productsControllers.payment )
 
 module.exports = {
