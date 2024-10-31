@@ -4,10 +4,11 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const logIn = asyncWrapper( async (req , res , next) => {
     const {email , password} = req.body
+    console.log(req.body)
     const existUser = await user.findOne({email: email})
     let matchedPassword;
     if(existUser) {
-        matchedPassword =await bcrypt.compare(password , existUser.password)
+        matchedPassword = await bcrypt.compare(password , existUser.password)
     }else {
         const err = new Error()
         err.message = "This Email is not exist"

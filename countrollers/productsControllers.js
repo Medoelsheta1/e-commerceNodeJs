@@ -4,7 +4,6 @@ const order = require('../schemas/order')
 const asyncWraper = require('../middleWares/asyncWrapper')
 const stripe = require('stripe')('sk_test_51N132CL9jMBsnbunMtkjM50zpzNAUmIa0CFcAuRDZgnaYgp2m65j30WdT1ykfzUUDoOpULDYQgCR5ohixKkccRFO00f7sXYj7t')
 const getAllProducts = asyncWraper( async (req , res , next) => {
-
     const limits = req.query.limit || 50
     const page = req.query.page || 1
     const kind = req.query.kind
@@ -171,8 +170,22 @@ const getOrder = asyncWraper(async(req, res) => {
         }
     })
 })
+const updateQuantiy = asyncWraper(async(req, res) => {
+    const id = req.params.id
+    const updatedQuantaty = req.query.quantity
+    const getProduct = await product.findById(id)
+    let updatedSize = req.query.size
+    getProduct.sizes[0][`${updatedSize}`] = updatedQuantaty
+    await getProduct.save()
+    res.json({
+        status: "success",
+        data: {
+            getProduct
+        }
+    })
+})
+
 const payment = asyncWraper(async(req, res) => {
-    console.log(req.body.products)
     const line_items = req.body.products.map((ele) => {
         return {
             price_data:  {
@@ -181,12 +194,11 @@ const payment = asyncWraper(async(req, res) => {
                     name: ele.name,
                     images: [ele.images[0].url]
                 },
-                
                 unit_amount: ele.price * 100
             },
             quantity: ele.quantaty,
         }
-    })
+})
     
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -222,5 +234,6 @@ module.exports = {
     getOrder,
     addStatus,
     payment,
-    getBrandProducts
+    getBrandProducts,
+    updateQuantiy
 }

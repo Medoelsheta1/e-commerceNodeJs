@@ -11,15 +11,19 @@ const url = process.env.PUBLIC_URL
 // const upload = multer(); // config
 // app.use(upload.any());
 
+const bodyParser = require('body-parser');
 
 const path = require('path')
 app.use('/uploads' , express.static(path.join(__dirname , 'uploads')))
 
 
 app.use(express.json())
+app.use(bodyParser.json());
 app.use(cors())
 app.use('/' , productsRouter)
 app.use('/' , usersRouter)
+
+
 app.all('*' , (req , res) => res.status(404).json({status: 'Error' , message: "Invalid Url"}))
 app.use((error , req , res) => {
     res.status(error.statusCode || 500).json({
@@ -32,6 +36,6 @@ mongoose.connect(url).then(() => {
 })
 
 
-app.listen('5000' , () => {
-    console.log('lisening successfully on port 5000')
+app.listen( 8080 || process.env.PORT , () => {
+    console.log('lisening successfully on port 3000')
 })
